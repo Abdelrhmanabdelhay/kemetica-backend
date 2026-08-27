@@ -1,0 +1,511 @@
+# Kemetica — Node.js + MongoDB Backend: Models & Controllers
+
+## Project Overview
+
+**Kemetica** is a luxury Egyptian tour/expedition booking platform. The Angular frontend uses a clean **Domain-Driven Architecture** (domain → data → presentation layers) and currently calls mock data. The backend must replace those mocks with a real REST API at `/api/v1/`.
+
+### Auth & Request Headers
+The Angular [`apiInterceptor`](file:///d:/kemetica/src/app/core/interceptors/api.interceptor.ts) automatically attaches to every HTTP request:
+- `Content-Type: application/json`
+- `X-App-Client: Kemetica-Web`
+- `withCredentials: true` — the JWT is stored in an **HttpOnly cookie** set by the backend, so the browser sends it automatically on every request. No manual `Authorization` header needed.
+
+> **Security note:** HttpOnly cookies cannot be accessed by JavaScript — they are immune to XSS attacks. The backend must set `SameSite=Lax` (or `Strict`) and `Secure` (in production) on the cookie.
+
+---
+
+## Two Separate Filtering Systems
+
+The frontend has **two distinct filtering mechanisms** that the backend must support:
+
+| System | Page | Filter Type | Filter Values | Status |
+|---|---|---|---|---|
+| **Category filter** | `/tours` page | Tour type/theme | `historical`, `luxury-nile`, `desert-safari`, `cultural`, `diving` | ✅ Wired & working |
+| **Destination icon filter** | Home page "Special Tours" section | Geographic location | `giza`, `luxor`, `aswan`, `abusimbel` | ⚠️ Icons exist, click logic not yet wired |
+
+---
+
+## Current Destination Icons (`/public/icons/`)
+
+These 4 `.jpg` files exist and are used in the Home page Special Tours icon row:
+
+| Icon File | Destination Slug | City Match in Tours |
+|---|---|---|
+| `giza-icon.jpg` | `giza` | `Giza & Cairo` |
+| `luxor-icon.jpg` | `luxor` | `Luxor to Aswan` |
+| `aswan-icon.jpg` | `aswan` | `Aswan` |
+| `abusimbel-icon.jpg` | `abusimbel` | `Abu Simbel` |
+
+> **Note:** Luxor is hardcoded as the default selected icon in the HTML. Clicking other icons currently does nothing — this needs to be wired.
+
+---
+
+## MongoDB Models (Mongoose Schemas)
+
+### 1. `Tour` Model
+**Source:** [`tour.dto.ts`](file:///d:/kemetica/src/app/data/dto/tour.dto.ts) · [`tour.model.ts`](file:///d:/kemetica/src/app/domain/models/tour.model.ts)
+
+> **Critical:** Field names must be **snake_case** to match `TourDto` exactly, since [`TourMapper`](file:///d:/kemetica/src/app/data/mappers/tour.mapper.ts) uses them directly.
+
+```js
+// models/Tour.js
+const mongoose = require('mongoose');
+
+const ItineraryDaySchema = new mongoose.Schema({
+  day:         { type: Number, required: true },
+  title:       { type: String, required: true },
+  description: { type: String, required: true },
+  activities:  [{ type: String }],
+  meals:       [{ type: String }],   // e.g. ['Breakfast', 'Lunch', 'Dinner']
+});
+
+const TourSchema = new mongoose.Schema({
+  title:              { type: String, required: true, trim: true },
+  slug:               { type: String, required: true, unique: true, lowercase: true },
+  tagline:            { type: String, required: true },
+  description:        { type: String, required: true },
+  category: {
+    type: String,
+    required: true,
+    // Used in /tours page category tab filter
+    enum: ['historical', 'luxury-nile', 'desert-safari', 'cultural', 'diving'],
+  },
+  destination: {
+    type: String,
+    required: true,
+    // Used in Home page destination icon filter
+    enum: ['giza', 'luxor', 'aswan', 'abusimbel', 'sharm', 'siwa', 'hurghada'],
+  },
+  duration_days:      { type: Number, required: true },
+  price_usd:          { type: Number, required: true },
+  rating_score:       { type: Number, default: 0, min: 0, max: 5 },
+  reviews_count:      { type: Number, default: 0 },
+  max_group_size:     { type: Number, required: true },
+  featured_image_url: { type: String, required: true },
+  gallery_urls:       [{ type: String }],
+  highlights:         [{ type: String }],
+  city:               { type: String, required: true },
+  country:            { type: String, required: true, default: 'Egypt' },
+  coordinates: {
+    lat: Number,
+    lng: Number,
+  },
+  itinerary:         [ItineraryDaySchema],
+  included_items:    [{ type: String }],
+  excluded_items:    [{ type: String }],
+  is_featured:       { type: Boolean, default: false },
+  badge_label:       { type: String },
+  // For "Popular" / "Special" tour type badges on home page
+  tour_type: {
+    type: String,
+    enum: ['special', 'popular', 'new', 'exclusive', 'standard'],
+    default: 'standard',
+  },
+}, { timestamps: true });
+
+// Indexes for fast filtering
+TourSchema.index({ category: 1, is_featured: 1 });
+TourSchema.index({ destination: 1 });
+TourSchema.index({ slug: 1 });
+TourSchema.index({ title: 'text', tagline: 'text', description: 'text' });
+
+module.exports = mongoose.model('Tour', TourSchema);
+```
+
+---
+
+### 2. `User` Model
+**Source:** [`user.model.ts`](file:///d:/kemetica/src/app/domain/models/user.model.ts)
+
+```js
+// models/User.js
+const mongoose = require('mongoose');
+const bcrypt   = require('bcryptjs');
+
+const UserSchema = new mongoose.Schema({
+  fullName:  { type: String, required: true, trim: true },
+  email:     { type: String, required: true, unique: true, lowercase: true },
+  password:  { type: String, required: true, select: false },
+  avatarUrl: { type: String },
+  role: {
+    type: String,
+    enum: ['customer', 'guide', 'admin'],
+    default: 'customer',
+  },
+}, { timestamps: true });
+
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
+
+UserSchema.methods.correctPassword = function (candidate, hashed) {
+  return bcrypt.compare(candidate, hashed);
+};
+
+module.exports = mongoose.model('User', UserSchema);
+```
+
+---
+
+### 3. `Inquiry` Model
+**Source:** [`contact.component.ts`](file:///d:/kemetica/src/app/presentation/contact/contact.component.ts) — form fields: `fullName`, `email`, `phone`, `expeditionType`, `estimatedGuests`, `travelDates`, `specialRequests`
+
+```js
+// models/Inquiry.js
+const mongoose = require('mongoose');
+
+const InquirySchema = new mongoose.Schema({
+  fullName:        { type: String, required: true },
+  email:           { type: String, required: true },
+  phone:           { type: String },
+  expeditionType: {
+    type: String,
+    enum: ['luxury-nile', 'historical', 'desert-safari', 'diving', 'custom'],
+    default: 'custom',
+  },
+  estimatedGuests: { type: Number, default: 2 },
+  travelDates:     { type: String },
+  specialRequests: { type: String },
+  status: {
+    type: String,
+    enum: ['new', 'contacted', 'converted', 'closed'],
+    default: 'new',
+  },
+}, { timestamps: true });
+
+module.exports = mongoose.model('Inquiry', InquirySchema);
+```
+
+---
+
+### 4. `Review` Model
+**Source:** `TourReview` interface in [`tour.model.ts`](file:///d:/kemetica/src/app/domain/models/tour.model.ts)
+
+```js
+// models/Review.js
+const mongoose = require('mongoose');
+
+const ReviewSchema = new mongoose.Schema({
+  tour:         { type: mongoose.Schema.Types.ObjectId, ref: 'Tour', required: true },
+  author:       { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  authorName:   { type: String, required: true },
+  authorAvatar: { type: String },
+  rating:       { type: Number, required: true, min: 1, max: 5 },
+  comment:      { type: String, required: true },
+}, { timestamps: true });
+
+// Auto-update tour's aggregated rating after each review
+ReviewSchema.post('save', async function () {
+  const stats = await mongoose.model('Review').aggregate([
+    { $match: { tour: this.tour } },
+    { $group: { _id: '$tour', avgRating: { $avg: '$rating' }, count: { $sum: 1 } } },
+  ]);
+  if (stats.length > 0) {
+    await mongoose.model('Tour').findByIdAndUpdate(this.tour, {
+      rating_score:  Math.round(stats[0].avgRating * 100) / 100,
+      reviews_count: stats[0].count,
+    });
+  }
+});
+
+module.exports = mongoose.model('Review', ReviewSchema);
+```
+
+---
+
+### 5. `Destination` Model *(new — drives the icon filter)*
+**Source:** [`home.component.html`](file:///d:/kemetica/src/app/presentation/home/home.component.html#L116-L154) icon row + `/public/icons/` directory
+
+```js
+// models/Destination.js
+// Represents the clickable icon destinations on the Home "Special Tours" section
+const mongoose = require('mongoose');
+
+const DestinationSchema = new mongoose.Schema({
+  slug:      { type: String, required: true, unique: true },  // e.g. 'giza'
+  name:      { type: String, required: true },                // e.g. 'Giza'
+  iconUrl:   { type: String, required: true },                // e.g. '/icons/giza-icon.jpg'
+  sortOrder: { type: Number, default: 0 },
+  isActive:  { type: Boolean, default: true },
+}, { timestamps: true });
+
+module.exports = mongoose.model('Destination', DestinationSchema);
+```
+
+**Seed data (matches existing icons):**
+```js
+[
+  { slug: 'giza',      name: 'Giza',      iconUrl: '/icons/giza-icon.jpg',      sortOrder: 1 },
+  { slug: 'luxor',     name: 'Luxor',     iconUrl: '/icons/luxor-icon.jpg',      sortOrder: 2 },
+  { slug: 'aswan',     name: 'Aswan',     iconUrl: '/icons/aswan-icon.jpg',      sortOrder: 3 },
+  { slug: 'abusimbel', name: 'Abu Simbel',iconUrl: '/icons/abusimbel-icon.jpg',  sortOrder: 4 },
+]
+```
+
+---
+
+## Controllers & Routes
+
+### API Base URL: `/api/v1`
+
+| Method | Endpoint | Controller | Description |
+|--------|----------|------------|-------------|
+| **GET** | `/tours` | `TourController.getAll` | List tours — supports `?category=`, `?destination=`, `?maxPrice=`, `?q=`, `?tour_type=` |
+| **GET** | `/tours/featured` | `TourController.getFeatured` | Featured tours shown on Home page card grid |
+| **GET** | `/tours/special` | `TourController.getSpecial` | `tour_type=special` tours for "Special Tours" section |
+| **GET** | `/tours/popular` | `TourController.getPopular` | `tour_type=popular` tours |
+| **GET** | `/tours/:slug` | `TourController.getOne` | Single tour by slug or id |
+| **POST** | `/tours` | `TourController.create` | Create tour (admin only) |
+| **PATCH** | `/tours/:id` | `TourController.update` | Update tour (admin only) |
+| **DELETE** | `/tours/:id` | `TourController.delete` | Delete tour (admin only) |
+| **GET** | `/tours/:id/reviews` | `ReviewController.getForTour` | Reviews for a tour |
+| **POST** | `/tours/:id/reviews` | `ReviewController.create` | Post review (auth required) |
+| **GET** | `/destinations` | `DestinationController.getAll` | All destination icons (for Home icon row) |
+| **POST** | `/destinations` | `DestinationController.create` | Add new destination icon (admin) |
+| **POST** | `/inquiries` | `InquiryController.create` | Submit contact/expedition inquiry form |
+| **GET** | `/inquiries` | `InquiryController.getAll` | Admin: list all inquiries |
+| **PATCH** | `/inquiries/:id` | `InquiryController.updateStatus` | Admin: update inquiry status |
+| **POST** | `/auth/register` | `AuthController.register` | User registration |
+| **POST** | `/auth/login` | `AuthController.login` | Login → returns JWT stored as `kmt_token` |
+| **GET** | `/auth/me` | `AuthController.getMe` | Current user (auth required) |
+
+---
+
+### `TourController.js` — key logic
+
+```js
+// GET /api/v1/tours?category=historical&destination=luxor&q=pyramid&maxPrice=2000&tour_type=special
+exports.getAll = async (req, res) => {
+  const { category, destination, maxPrice, q, tour_type } = req.query;
+  const filter = {};
+
+  if (category && category !== 'all') filter.category = category;
+  if (destination)                    filter.destination = destination;  // ← icon filter
+  if (maxPrice)                       filter.price_usd = { $lte: Number(maxPrice) };
+  if (tour_type)                      filter.tour_type = tour_type;
+  if (q)                              filter.$text = { $search: q };
+
+  const tours = await Tour.find(filter).sort('-is_featured -rating_score');
+  res.json({ status: 'success', results: tours.length, data: tours });
+};
+
+// GET /api/v1/tours/featured  (Home page card grid)
+exports.getFeatured = async (req, res) => {
+  const tours = await Tour.find({ is_featured: true }).limit(6).sort('-rating_score');
+  res.json({ status: 'success', data: tours });
+};
+
+// GET /api/v1/tours/special  (Home "Don't miss / Special Tours" section)
+exports.getSpecial = async (req, res) => {
+  const { destination } = req.query;   // ← filtered by icon click
+  const filter = { tour_type: 'special' };
+  if (destination) filter.destination = destination;
+  const tours = await Tour.find(filter).limit(6);
+  res.json({ status: 'success', data: tours });
+};
+
+// GET /api/v1/tours/:slug
+exports.getOne = async (req, res) => {
+  const tour = await Tour.findOne({
+    $or: [{ slug: req.params.slug }, { _id: req.params.slug }]
+  });
+  if (!tour) return res.status(404).json({ status: 'error', message: 'Tour not found' });
+  res.json({ status: 'success', data: tour });
+};
+```
+
+---
+
+### `InquiryController.js` — matches contact form fields exactly
+
+```js
+exports.create = async (req, res) => {
+  const {
+    fullName, email, phone, expeditionType,
+    estimatedGuests, travelDates, specialRequests
+  } = req.body;
+
+  const inquiry = await Inquiry.create({
+    fullName, email, phone, expeditionType,
+    estimatedGuests, travelDates, specialRequests,
+  });
+  // Optional: send email to concierge via nodemailer
+  res.status(201).json({ status: 'success', data: inquiry });
+};
+```
+
+---
+
+### `AuthController.js` — token sent as HttpOnly cookie
+
+```js
+// Token is set as an HttpOnly cookie — never exposed to JavaScript
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email }).select('+password');
+  if (!user || !(await user.correctPassword(password, user.password))) {
+    return res.status(401).json({ status: 'error', message: 'Invalid credentials' });
+  }
+
+  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  });
+
+  // Set as HttpOnly cookie — browser sends automatically, JS cannot read it
+  res.cookie('kmt_token', token, {
+    httpOnly: true,                              // ← not accessible via JS
+    secure: process.env.NODE_ENV === 'production', // ← HTTPS only in prod
+    sameSite: 'lax',                             // ← CSRF protection
+    maxAge: 7 * 24 * 60 * 60 * 1000,            // ← 7 days in ms
+  });
+
+  res.json({ status: 'success', data: { user } }); // no token in body
+};
+
+exports.logout = async (req, res) => {
+  res.cookie('kmt_token', '', { httpOnly: true, expires: new Date(0) });
+  res.json({ status: 'success', message: 'Logged out' });
+};
+```
+
+---
+
+## Suggested Project Structure
+
+```
+kemetica-backend/
+├── src/
+│   ├── models/
+│   │   ├── Tour.js
+│   │   ├── User.js
+│   │   ├── Review.js
+│   │   ├── Inquiry.js
+│   │   └── Destination.js       ← new: drives Home icon filter
+│   ├── controllers/
+│   │   ├── tourController.js
+│   │   ├── reviewController.js
+│   │   ├── inquiryController.js
+│   │   ├── destinationController.js  ← new
+│   │   └── authController.js
+│   ├── routes/
+│   │   ├── tourRoutes.js
+│   │   ├── reviewRoutes.js
+│   │   ├── inquiryRoutes.js
+│   │   ├── destinationRoutes.js      ← new
+│   │   └── authRoutes.js
+│   ├── middleware/
+│   │   ├── protect.js           (verifies kmt_token JWT)
+│   │   ├── restrictTo.js        (role-based: customer, guide, admin)
+│   │   └── errorHandler.js
+│   ├── utils/
+│   │   └── apiFeatures.js       (pagination, sorting, filtering)
+│   ├── seed/
+│   │   ├── tours.seed.js        (4 mock tours from tour-api.service.ts)
+│   │   └── destinations.seed.js (4 icon destinations)
+│   └── app.js
+├── .env
+└── package.json
+```
+
+---
+
+## Key Dependencies (npm)
+
+```json
+{
+  "express": "^4.x",
+  "mongoose": "^8.x",
+  "dotenv": "^16.x",
+  "jsonwebtoken": "^9.x",
+  "bcryptjs": "^2.x",
+  "cors": "^2.x",
+  "helmet": "^7.x",
+  "express-rate-limit": "^7.x",
+  "express-validator": "^7.x",
+  "nodemailer": "^6.x",
+  "multer": "^1.x"
+}
+```
+
+---
+
+## Frontend Integration Points
+
+### `TourApiService` — already has comments showing the real calls:
+```ts
+// Already in tour-api.service.ts — just un-comment:
+this.http.get<TourDto[]>('/api/v1/tours')
+this.http.get<TourDto>(`/api/v1/tours/${id}`)
+
+// New calls needed for destination icon filter:
+this.http.get<TourDto[]>('/api/v1/tours/special?destination=luxor')
+this.http.get<DestinationDto[]>('/api/v1/destinations')
+```
+
+### `TourFilterOptions` — needs `destination` added:
+```ts
+// domain/models/tour.model.ts
+export interface TourFilterOptions {
+  category?: string;
+  destination?: string;   // ← ADD THIS — matches icon slugs
+  maxPrice?: number;
+  duration?: number;
+  searchQuery?: string;
+}
+```
+
+### Angular Interceptor & App Config — cookie auth:
+The [`apiInterceptor`](file:///d:/kemetica/src/app/core/interceptors/api.interceptor.ts) must be updated to set `withCredentials: true` so the browser includes the HttpOnly cookie on every cross-origin request. No manual header reading needed.
+
+**Interceptor update needed:**
+```ts
+// core/interceptors/api.interceptor.ts
+export const apiInterceptor: HttpInterceptorFn = (req, next) => {
+  const modifiedReq = req.clone({
+    withCredentials: true,           // ← sends HttpOnly cookie automatically
+    setHeaders: {
+      'Content-Type': 'application/json',
+      'X-App-Client': 'Kemetica-Web',
+    },
+  });
+  return next(modifiedReq);
+};
+```
+
+**Backend CORS must allow credentials:**
+```js
+// app.js
+app.use(cors({
+  origin: 'http://localhost:4200',   // Angular dev server
+  credentials: true,                 // ← required for cookies
+}));
+```
+
+**Backend JWT middleware reads from cookie:**
+```js
+// middleware/protect.js
+const token = req.cookies.kmt_token;
+if (!token) return res.status(401).json({ status: 'error', message: 'Not authenticated' });
+const decoded = jwt.verify(token, process.env.JWT_SECRET);
+req.user = decoded;
+```
+
+**Extra npm package needed:** `cookie-parser`
+```js
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+```
+
+---
+
+## Tour `tour_type` Values (for Home page sections)
+
+| Value | Used For | Home Section |
+|---|---|---|
+| `special` | "Don't miss / Special Tours" | Filtered by destination icons |
+| `popular` | "Popular Tours" section | If added to home page |
+| `new` | "New Arrivals" section | If added to home page |
+| `exclusive` | Highest tier VIP tours | Featured section |
+| `standard` | Regular listing | Tours page only |
