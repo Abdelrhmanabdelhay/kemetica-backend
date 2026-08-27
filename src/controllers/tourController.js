@@ -67,12 +67,24 @@ export const getPopular = async (req, res, next) => {
 
 export const getOne = async (req, res, next) => {
   try {
-    const tour = await Tour.findOne({
-      $or: [{ slug: req.params.id }, { _id: req.params.id }]
-    }).populate('category');
+    const id = req.params.id;
+    const isValidObjectId = /^[0-9a-fA-F]{24}$/.test(id);
+    
+    const query = isValidObjectId 
+      ? { $or: [{ slug: id }, { _id: id }] }
+      : { slug: id };
+
+    const tour = await Tour.findOne(query).populate('category');
+    
     if (!tour) {
       return next(new AppError('Tour not found', 404));
     }
+
+    // Special tours are cover images only and shouldn't have a detail page
+    if (tour.tour_type === 'special') {
+      return next(new AppError('Tour not found', 404));
+    }
+
     sendSuccess(res, 200, tour, 'Successfully fetched tour');
   } catch (error) {
     next(error);
