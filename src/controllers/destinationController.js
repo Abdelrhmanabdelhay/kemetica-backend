@@ -31,4 +31,8 @@ export const getAll = async (req, res, next) => {
 export const create = async (req, res, next) => {
   try {
     const destination = await Destination.create(req.body);
-    sendSuccess(res, 201, dest
+    sendSuccess(res, 201, destination, 'Successfully created destination');
+  } catch (error) {
+    next(error);
+  }
+};
