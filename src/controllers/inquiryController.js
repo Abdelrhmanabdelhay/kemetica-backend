@@ -34,7 +34,7 @@ export const updateStatus = async (req, res, next) => {
     const inquiry = await Inquiry.findByIdAndUpdate(
       req.params.id, 
       { status }, 
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
     if (!inquiry) {
       return next(new AppError('Inquiry not found', 404));

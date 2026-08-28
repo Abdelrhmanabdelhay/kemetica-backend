@@ -105,7 +105,7 @@ export const create = async (req, res, next) => {
 export const update = async (req, res, next) => {
   try {
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     });
     if (!tour) {

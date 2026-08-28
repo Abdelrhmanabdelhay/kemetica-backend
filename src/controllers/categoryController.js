@@ -91,7 +91,7 @@ export const updateCategory = async (req, res, next) => {
     const updatedCategory = await Category.findByIdAndUpdate(
       req.params.id,
       { name, slug, description, image_url, is_active, display_order },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     sendSuccess(res, 200, updatedCategory, 'Successfully updated category');
