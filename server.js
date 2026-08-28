@@ -10,7 +10,7 @@ process.on('uncaughtException', err => {
   process.exit(1);
 });
 
-const DB = process.env.MONGO_URI;
+const DB = process.env.MONGODB_URI || process.env.MONGO_URI;
 
 mongoose
   .connect(DB)
