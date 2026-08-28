@@ -8,6 +8,15 @@ const ItineraryDaySchema = new mongoose.Schema({
   meals: [{ type: String }],   // e.g. ['Breakfast', 'Lunch', 'Dinner']
 });
 
+const ToursPlanDaySchema = new mongoose.Schema({
+  day: { type: Number, required: true },
+  title: { type: String, required: true },
+  description: [{
+    headline: { type: String, required: true },
+    details: { type: String, required: true }
+  }]
+});
+
 const TourSchema = new mongoose.Schema({
   title: { type: String, required: true, trim: true },
   slug: { type: String, required: true, unique: true, lowercase: true },
@@ -23,7 +32,8 @@ const TourSchema = new mongoose.Schema({
     required: true,
     enum: ['giza', 'luxor', 'aswan'],
   },
-  duration_days: { type: Number, required: true },
+  duration: { type: Number, required: true },
+  duration_type: { type: String, enum: ['Days', 'Hours'], default: 'Days' },
   rating_score: { type: Number, default: 0, min: 0, max: 5 },
   reviews_count: { type: Number, default: 0 },
   max_group_size: { type: Number, required: true },
@@ -37,8 +47,9 @@ const TourSchema = new mongoose.Schema({
     lng: Number,
   },
   itinerary: [ItineraryDaySchema],
-  included_items: [{ type: String }],
-  excluded_items: [{ type: String }],
+  tours_plan: [ToursPlanDaySchema],
+  included: [{ type: String }],
+  excluded: [{ type: String }],
   is_featured: { type: Boolean, default: false },
   badge_label: { type: String },
   // 'special' = cover/hero image only per destination; not shown in tour listings
@@ -53,7 +64,13 @@ const TourSchema = new mongoose.Schema({
     enum: ['gold', 'cruise', 'transfer', 'standard'],
     default: 'standard',
   },
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+TourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id'
+});
 
 TourSchema.index({ category: 1, is_featured: 1 });
 TourSchema.index({ destination: 1 });

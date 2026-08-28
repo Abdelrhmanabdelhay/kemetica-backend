@@ -6,7 +6,7 @@ import { slugify } from '../utils/slugify.js';
 
 export const createCategory = async (req, res, next) => {
   try {
-    let { name, slug, description, display_order } = req.body;
+    let { name, slug, description, display_order, is_active } = req.body;
 
     if (!name) {
       return next(new AppError('Please provide a category name', 400));

@@ -74,7 +74,9 @@ export const getOne = async (req, res, next) => {
       ? { $or: [{ slug: id }, { _id: id }] }
       : { slug: id };
 
-    const tour = await Tour.findOne(query).populate('category');
+    const tour = await Tour.findOne(query)
+      .populate('category')
+      .populate('reviews');
     
     if (!tour) {
       return next(new AppError('Tour not found', 404));

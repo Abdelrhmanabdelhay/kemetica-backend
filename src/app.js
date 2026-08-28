@@ -10,6 +10,7 @@ import AppError from './utils/AppError.js';
 
 import tourRoutes from './routes/tourRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import destinationRoutes from './routes/destinationRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
@@ -45,8 +46,10 @@ app.use('/icons', express.static(path.join(__dirname, '../icons')));
 
 app.use('/api/v1/tours', tourRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/destinations', destinationRoutes);
 app.use('/api/v1/tours/:id/reviews', reviewRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/inquiries', inquiryRoutes);
 app.use('/api/v1/admin/categories', categoryRoutes);
 app.use('/api/v1/upload', uploadRoutes);

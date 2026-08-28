@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const ReviewSchema = new mongoose.Schema({
   tour:         { type: mongoose.Schema.Types.ObjectId, ref: 'Tour', required: true },
-  author:       { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  author:       { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   authorName:   { type: String, required: true },
   authorAvatar: { type: String },
   rating:       { type: Number, required: true, min: 1, max: 5 },

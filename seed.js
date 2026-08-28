@@ -25,7 +25,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 5,
     "featured_image_url": "/cover-special/giza.jpg",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Giza",
     "country": "Egypt",
     "tour_type": "special",
@@ -36,7 +40,38 @@ const tours = [
       "VIP guide",
       "Luxury transport"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Giza and Cairo Highlights",
@@ -48,7 +83,11 @@ const tours = [
     "duration_days": 3,
     "max_group_size": 15,
     "featured_image_url": "https://images.unsplash.com/photo-1539650116574-8efeb43e2b50?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Giza",
     "country": "Egypt",
     "tour_type": "popular",
@@ -59,26 +98,35 @@ const tours = [
       "The Sphinx",
       "Egyptian Museum"
     ],
-    "itinerary": [
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
       {
         "day": 1,
-        "title": "Arrival",
-        "description": "Arrive in Cairo.",
-        "activities": [],
-        "meals": [
-          "Dinner"
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
         ]
       },
       {
         "day": 2,
-        "title": "Pyramids",
-        "description": "Full day tour of Giza Pyramids.",
-        "activities": [
-          "Sightseeing"
-        ],
-        "meals": [
-          "Breakfast",
-          "Lunch"
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
         ]
       }
     ]
@@ -93,7 +141,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 8,
     "featured_image_url": "https://images.unsplash.com/photo-1539650116574-8efeb43e2b50?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Giza",
     "country": "Egypt",
     "tour_type": "standard",
@@ -104,7 +156,38 @@ const tours = [
       "Private guide",
       "Skip the queue"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Nile Dinner Cruise from Giza",
@@ -116,7 +199,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 30,
     "featured_image_url": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Giza",
     "country": "Egypt",
     "tour_type": "popular",
@@ -127,7 +214,38 @@ const tours = [
       "Belly dancing show",
       "Live Tanoura dance"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Nile Felucca Sunset Cruise",
@@ -139,7 +257,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 12,
     "featured_image_url": "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Giza",
     "country": "Egypt",
     "tour_type": "standard",
@@ -150,7 +272,38 @@ const tours = [
       "Pyramid backdrop at sunset",
       "Relaxing experience"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Giza Quad Bike Desert Safari",
@@ -162,7 +315,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 10,
     "featured_image_url": "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Giza",
     "country": "Egypt",
     "tour_type": "popular",
@@ -173,7 +330,38 @@ const tours = [
       "Desert landscape",
       "Pyramid views"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Giza Sound and Light Show Transfer",
@@ -185,7 +373,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 30,
     "featured_image_url": "https://images.unsplash.com/photo-1600527382025-0604b9c51a02?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Giza",
     "country": "Egypt",
     "tour_type": "standard",
@@ -196,7 +388,38 @@ const tours = [
       "Hotel pickup and drop-off",
       "Evening spectacle"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Luxor to Aswan Nile Cruise",
@@ -208,7 +431,11 @@ const tours = [
     "duration_days": 5,
     "max_group_size": 20,
     "featured_image_url": "/cover-special/luxor.jpg",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Luxor",
     "country": "Egypt",
     "tour_type": "special",
@@ -219,14 +446,35 @@ const tours = [
       "Karnak Temple",
       "Luxury cruise ship"
     ],
-    "itinerary": [
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
       {
         "day": 1,
-        "title": "Boarding",
-        "description": "Board the cruise ship in Luxor.",
-        "activities": [],
-        "meals": [
-          "Dinner"
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
         ]
       }
     ]
@@ -241,7 +489,11 @@ const tours = [
     "duration_days": 2,
     "max_group_size": 6,
     "featured_image_url": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Luxor",
     "country": "Egypt",
     "tour_type": "exclusive",
@@ -252,7 +504,38 @@ const tours = [
       "Both East and West banks",
       "Luxury vehicle"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Luxor Hot Air Balloon Ride",
@@ -264,7 +547,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 24,
     "featured_image_url": "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Luxor",
     "country": "Egypt",
     "tour_type": "popular",
@@ -275,7 +562,38 @@ const tours = [
       "Valley of the Kings aerial view",
       "Champagne landing"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Luxor Felucca Nile Overnight",
@@ -287,7 +605,11 @@ const tours = [
     "duration_days": 2,
     "max_group_size": 10,
     "featured_image_url": "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Luxor",
     "country": "Egypt",
     "tour_type": "popular",
@@ -298,7 +620,38 @@ const tours = [
       "Cook on board",
       "Temple views from the river"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Luxor Dahabiya Private Cruise",
@@ -310,7 +663,11 @@ const tours = [
     "duration_days": 4,
     "max_group_size": 12,
     "featured_image_url": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Luxor",
     "country": "Egypt",
     "tour_type": "exclusive",
@@ -321,7 +678,38 @@ const tours = [
       "Off-the-beaten-track temples",
       "Gourmet dining on board"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Luxor West Bank Tour",
@@ -333,7 +721,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 15,
     "featured_image_url": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Luxor",
     "country": "Egypt",
     "tour_type": "standard",
@@ -344,7 +736,38 @@ const tours = [
       "Hatshepsut Temple",
       "Hotel pickup and drop-off"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Dendera and Abydos Day Trip",
@@ -356,7 +779,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 12,
     "featured_image_url": "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Luxor",
     "country": "Egypt",
     "tour_type": "popular",
@@ -367,7 +794,38 @@ const tours = [
       "Abydos Temple",
       "Full-day excursion"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Aswan Philae Temple at Night",
@@ -379,7 +837,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 10,
     "featured_image_url": "/cover-special/aswan.jpg",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Aswan",
     "country": "Egypt",
     "tour_type": "special",
@@ -390,7 +852,38 @@ const tours = [
       "Sound and Light show",
       "Motorboat to island"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Aswan Luxury Nile Escape",
@@ -402,7 +895,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 6,
     "featured_image_url": "https://images.unsplash.com/photo-1539650116574-8efeb43e2b50?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Aswan",
     "country": "Egypt",
     "tour_type": "exclusive",
@@ -414,7 +911,38 @@ const tours = [
       "High Dam",
       "Private guide"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Aswan Nubian Gold Experience",
@@ -426,7 +954,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 8,
     "featured_image_url": "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Aswan",
     "country": "Egypt",
     "tour_type": "exclusive",
@@ -437,7 +969,38 @@ const tours = [
       "Nubian village visit",
       "Traditional lunch included"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Aswan to Luxor Nile Cruise",
@@ -449,7 +1012,11 @@ const tours = [
     "duration_days": 4,
     "max_group_size": 25,
     "featured_image_url": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Aswan",
     "country": "Egypt",
     "tour_type": "popular",
@@ -460,7 +1027,38 @@ const tours = [
       "Edfu Temple",
       "Luxury cruise ship"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Aswan Felucca Sunset Sail",
@@ -472,7 +1070,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 8,
     "featured_image_url": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Aswan",
     "country": "Egypt",
     "tour_type": "popular",
@@ -483,7 +1085,38 @@ const tours = [
       "Elephantine Island",
       "Sunset views"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "Nubian Village Day Trip",
@@ -495,7 +1128,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 15,
     "featured_image_url": "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Aswan",
     "country": "Egypt",
     "tour_type": "standard",
@@ -506,7 +1143,38 @@ const tours = [
       "Nubian village",
       "Hotel transfer"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   },
   {
     "title": "High Dam and Unfinished Obelisk",
@@ -518,7 +1186,11 @@ const tours = [
     "duration_days": 1,
     "max_group_size": 20,
     "featured_image_url": "https://images.unsplash.com/photo-1539650116574-8efeb43e2b50?auto=format&fit=crop&w=800&q=80",
-    "gallery_urls": [],
+    "gallery_urls": [
+      "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed2a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=800&q=80"
+    ],
     "city": "Aswan",
     "country": "Egypt",
     "tour_type": "standard",
@@ -529,7 +1201,38 @@ const tours = [
       "Unfinished Obelisk",
       "Hotel pickup and drop-off"
     ],
-    "itinerary": []
+    "included": [
+      "Professional Egyptologist Guide",
+      "All transfers by private air-conditioned vehicle",
+      "Entrance fees to all mentioned sites",
+      "Meals as mentioned in the itinerary"
+    ],
+    "excluded": [
+      "International Airfare",
+      "Entry visa to Egypt",
+      "Any optional tours",
+      "Tipping"
+    ],
+    "tours_plan": [
+      {
+        "day": 1,
+        "title": "Arrival & Check-in",
+        "description": [
+          { "headline": "Morning Pickup:", "details": "Meet your guide and transfer to your accommodation." },
+          { "headline": "Afternoon Tour:", "details": "Begin your exploration with an introductory tour." },
+          { "headline": "Meals:", "details": "Dinner included." }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Highlights Tour",
+        "description": [
+          { "headline": "Early Departure:", "details": "Leave early to beat the crowds and heat." },
+          { "headline": "Guided Visit:", "details": "Explore the majestic sites with your expert guide." },
+          { "headline": "Meals:", "details": "Breakfast, Lunch" }
+        ]
+      }
+    ]
   }
 ];;;
 
