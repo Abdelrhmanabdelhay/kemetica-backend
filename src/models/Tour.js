@@ -53,11 +53,10 @@ const TourSchema = new mongoose.Schema({
   is_featured: { type: Boolean, default: false },
   badge_label: { type: String },
   // 'special' = cover/hero image only per destination; not shown in tour listings
-  tour_type: {
+  tour_type: [{
     type: String,
     enum: ['special', 'popular', 'new', 'exclusive', 'standard'],
-    default: 'standard',
-  },
+  }],
   // sub_type = the browsable category per destination (gold, cruise, transfer)
   sub_type: {
     type: String,
