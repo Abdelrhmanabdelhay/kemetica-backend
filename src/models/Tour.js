@@ -72,6 +72,13 @@ TourSchema.virtual('reviews', {
   localField: '_id'
 });
 
+
+TourSchema.pre('validate', function() {
+  if (this.title && !this.slug) {
+    this.slug = this.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  }
+});
+
 TourSchema.index({ category: 1, is_featured: 1 });
 TourSchema.index({ destination: 1 });
 TourSchema.index({ destination: 1, sub_type: 1 });

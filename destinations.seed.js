@@ -12,7 +12,7 @@ const destinations = [
 
 const seedDB = async () => {
   try {
-    const DB = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/kemetica';
+    const DB = process.env.MONGODB_URI;
     await mongoose.connect(DB);
     console.log('DB connection successful!');
 

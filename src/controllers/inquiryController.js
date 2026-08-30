@@ -1,19 +1,46 @@
 import Inquiry from '../models/Inquiry.js';
 import { sendSuccess } from '../utils/response.js';
 import AppError from '../utils/AppError.js';
+import { sendInquiryEmail } from '../utils/emailService.js';
 
 export const create = async (req, res, next) => {
   try {
     const {
-      fullName, email, phone, expeditionType,
-      estimatedGuests, travelDates, specialRequests
+      fullName,
+      email,
+      phoneCountryCode,
+      phone,
+      nationality,
+      tourTitle,
+      tourSlug,
+      travelDateFrom,
+      travelDateTo,
+      adults,
+      children,
+      message,
     } = req.body;
 
     const inquiry = await Inquiry.create({
-      fullName, email, phone, expeditionType,
-      estimatedGuests, travelDates, specialRequests,
+      fullName,
+      email,
+      phoneCountryCode,
+      phone,
+      nationality,
+      tourTitle,
+      tourSlug,
+      travelDateFrom,
+      travelDateTo,
+      adults,
+      children,
+      message,
     });
-    sendSuccess(res, 201, inquiry, 'Successfully created inquiry');
+
+    // Send notification email — non-blocking; a mail failure won't break the response
+    sendInquiryEmail(inquiry).catch((err) => {
+      console.error('[EmailService] Failed to send inquiry email:', err.message);
+    });
+
+    sendSuccess(res, 201, inquiry, 'Inquiry submitted successfully');
   } catch (error) {
     next(error);
   }
