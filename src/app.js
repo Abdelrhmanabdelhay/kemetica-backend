@@ -31,7 +31,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 app.use(cors({
-  origin: ['http://localhost:4200', 'https://management-squeaky-fish.abasthan.app', 'https://kemetica.vercel.app', 'https://pants-similar-sea-lion.abasthan.app'],
+  origin: ['http://localhost:4200', 'https://management-squeaky-fish.abasthan.app', 'https://kemetica.vercel.app', 'https://pants-similar-sea-lion.abasthan.app', 'https://www.kemeticatours.com/'],
   credentials: true,
 }));
 
