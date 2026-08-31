@@ -19,6 +19,9 @@ import uploadRoutes from './routes/uploadRoutes.js';
 
 const app = express();
 
+// Trust reverse proxy (cPanel / Nginx / Abasthan proxy)
+app.set('trust proxy', 1);
+
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
@@ -28,10 +31,17 @@ const limiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again in an hour!'
 });
+
 app.use('/api', limiter);
 
 app.use(cors({
-  origin: ['http://localhost:4200', 'https://management-squeaky-fish.abasthan.app', 'https://kemetica.vercel.app', 'https://pants-similar-sea-lion.abasthan.app', 'https://www.kemeticatours.com'],
+  origin: [
+    'http://localhost:4200',
+    'https://management-squeaky-fish.abasthan.app',
+    'https://kemetica.vercel.app',
+    'https://pants-similar-sea-lion.abasthan.app',
+    'https://www.kemeticatours.com'
+  ],
   credentials: true,
 }));
 
@@ -40,6 +50,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/images', express.static(path.join(__dirname, '../images')));
 app.use('/icons', express.static(path.join(__dirname, '../icons')));
