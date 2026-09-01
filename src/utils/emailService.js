@@ -1,21 +1,12 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-};
 
 /**
- * Sends a styled inquiry notification email to kemiticatours@gmail.com
+ * Sends a styled inquiry notification email via Resend
  * @param {Object} inquiry - The saved Mongoose inquiry document
  */
 export const sendInquiryEmail = async (inquiry) => {
-  const transporter = createTransporter();
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const dateFrom = inquiry.travelDateFrom
     ? new Date(inquiry.travelDateFrom).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -44,7 +35,7 @@ export const sendInquiryEmail = async (inquiry) => {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>New Inquiry – Kemitica Tours</title>
+  <title>New Inquiry - Kemitica Tours</title>
 </head>
 <body style="margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f0e8;">
 
@@ -66,7 +57,7 @@ export const sendInquiryEmail = async (inquiry) => {
           <tr>
             <td style="background:#B88F45;padding:12px 32px;text-align:center;">
               <p style="margin:0;font-size:13px;color:#fff;font-weight:600;letter-spacing:0.5px;">
-                🎯 &nbsp;A new customer has submitted an inquiry
+                A new customer has submitted an inquiry
               </p>
             </td>
           </tr>
@@ -84,7 +75,7 @@ export const sendInquiryEmail = async (inquiry) => {
                 <!-- Section: Personal Info -->
                 <tr>
                   <td style="background:#3d2b10;padding:8px 16px;">
-                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">👤 Personal Information</span>
+                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Personal Information</span>
                   </td>
                 </tr>
                 <tr>
@@ -115,27 +106,27 @@ export const sendInquiryEmail = async (inquiry) => {
                 <!-- Section: Tour Info -->
                 <tr>
                   <td style="background:#3d2b10;padding:8px 16px;">
-                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">🏺 Tour Information</span>
+                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Tour Information</span>
                   </td>
                 </tr>
                 ${tourInfo}
                 <tr>
                   <td style="padding:10px 16px;background:#${inquiry.tourTitle ? 'fff' : 'fdf8f0'};border-bottom:1px solid #f0e8d5;">
                     <span style="font-size:12px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Travel Date (From)</span><br/>
-                    <span style="font-size:15px;color:#1a1a1a;font-weight:600;margin-top:4px;display:block;">📅 ${dateFrom}</span>
+                    <span style="font-size:15px;color:#1a1a1a;font-weight:600;margin-top:4px;display:block;">${dateFrom}</span>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding:10px 16px;background:#${inquiry.tourTitle ? 'fdf8f0' : 'fff'};border-bottom:1px solid #f0e8d5;">
                     <span style="font-size:12px;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Travel Date (To)</span><br/>
-                    <span style="font-size:15px;color:#1a1a1a;font-weight:600;margin-top:4px;display:block;">📅 ${dateTo}</span>
+                    <span style="font-size:15px;color:#1a1a1a;font-weight:600;margin-top:4px;display:block;">${dateTo}</span>
                   </td>
                 </tr>
 
                 <!-- Section: Group Size -->
                 <tr>
                   <td style="background:#3d2b10;padding:8px 16px;">
-                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">👥 Group Size</span>
+                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Group Size</span>
                   </td>
                 </tr>
                 <tr>
@@ -158,12 +149,12 @@ export const sendInquiryEmail = async (inquiry) => {
                 <!-- Section: Message -->
                 <tr>
                   <td style="background:#3d2b10;padding:8px 16px;">
-                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">💬 Requirements &amp; Message</span>
+                    <span style="font-size:11px;color:#B88F45;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Requirements and Message</span>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding:16px;background:#fdf8f0;">
-                    <p style="margin:0;font-size:14px;color:#444;line-height:1.7;font-style:italic;">${inquiry.message || '<span style="color:#aaa;">No specific requirements provided.</span>'}</p>
+                    <p style="margin:0;font-size:14px;color:#444;line-height:1.7;font-style:italic;">${inquiry.message || 'No specific requirements provided.'}</p>
                   </td>
                 </tr>
 
@@ -174,7 +165,7 @@ export const sendInquiryEmail = async (inquiry) => {
           <!-- CTA -->
           <tr>
             <td style="padding:24px 32px;text-align:center;">
-              <a href="mailto:${inquiry.email}?subject=Re: Your Inquiry – Kemitica Tours"
+              <a href="mailto:${inquiry.email}?subject=Re: Your Inquiry - Kemitica Tours"
                  style="display:inline-block;background:#B88F45;color:#fff;text-decoration:none;padding:14px 36px;border-radius:8px;font-size:14px;font-weight:700;letter-spacing:0.5px;">
                 Reply to ${inquiry.fullName.split(' ')[0]}
               </a>
@@ -197,13 +188,13 @@ export const sendInquiryEmail = async (inquiry) => {
 </body>
 </html>`;
 
-  await transporter.sendMail({
-    from: `"Kemitica Tours Website" <${process.env.EMAIL_USER}>`,
-    to: 'kemiticatours@gmail.com',
-    subject: `🏺 New Inquiry from ${inquiry.fullName} – Kemitica Tours`,
+  const { data, error } = await resend.emails.send({
+    from: 'Kemitica Tours <onboarding@resend.dev>',
+    to: process.env.EMAIL_TO,
+    subject: `New Inquiry from ${inquiry.fullName} - Kemitica Tours`,
     html,
     text: `
-New Inquiry Received – Kemitica Tours
+New Inquiry Received - Kemitica Tours
 ======================================
 Name:        ${inquiry.fullName}
 Email:       ${inquiry.email}
@@ -221,4 +212,10 @@ ${inquiry.message || 'No message provided.'}
 Received: ${new Date().toISOString()}
     `.trim(),
   });
+
+  if (error) {
+    throw new Error(`Resend error: ${JSON.stringify(error)}`);
+  }
+
+  return data;
 };
