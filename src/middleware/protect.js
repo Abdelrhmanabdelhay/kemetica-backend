@@ -5,7 +5,13 @@ import AppError from '../utils/AppError.js';
 export const protect = async (req, res, next) => {
   try {
     let token;
-    if (req.cookies && req.cookies.kmt_token) {
+
+    // Check Authorization: Bearer <token> header first
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
+    // Fallback: check HttpOnly cookie
+    else if (req.cookies && req.cookies.kmt_token) {
       token = req.cookies.kmt_token;
     }
 
