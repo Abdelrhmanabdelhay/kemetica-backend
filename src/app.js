@@ -39,7 +39,7 @@ app.use(cors({
     'http://localhost:4200',
     'https://management-squeaky-fish.abasthan.app',
     'https://kemetica.vercel.app',
-    'https://pants-similar-sea-lion.abasthan.app',
+    'https://kemetica-backend-production.up.railway.app',
     'https://www.kemeticatours.com'
   ],
   credentials: true,
