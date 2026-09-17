@@ -14,8 +14,8 @@ const createSendToken = (user, statusCode, res, message) => {
 
   res.cookie('kmt_token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: true, // Must be true when sameSite is 'none'
+    sameSite: 'none', // Required for cross-origin cookie sending
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -60,6 +60,8 @@ export const login = async (req, res, next) => {
 export const logout = (req, res) => {
   res.cookie('kmt_token', '', {
     httpOnly: true,
+    secure: true,
+    sameSite: 'none',
     expires: new Date(0),
   });
   sendSuccess(res, 200, null, 'Logged out successfully');
